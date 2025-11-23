@@ -1,217 +1,3750 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
-    }
-  }
+	"info": {
+		"_postman_id": "cebee1c5-79cd-4287-a7f8-a7b383586ce9",
+		"name": "convo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15873643",
+		"_collection_link": "https://dark-station-671323.postman.co/workspace/Multicone~cd867ed6-148b-4ea6-9d58-be6d6f063940/collection/15873643-cebee1c5-79cd-4287-a7f8-a7b383586ce9?action=share&source=collection_link&creator=15873643"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"nkmkibria@gmail.com\",\n  \"phoneNumber\": \"01700792973\",\n  \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Registration Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"user1@example.com\",\n  \"phoneNumber\": \"01712345678\",\n  \"password\": \"Password123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/register",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-dZU8f4nsiG9wamKHpIDuYNYMUqE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:30:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Registration successful. Please check your email for verification code.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('accessToken', 'refreshToken');",
+									"});",
+									"",
+									"",
+									"pm.test(\"AccessToken is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.accessToken).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"AccessToken should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"RefreshToken must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.refreshToken).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"RefreshToken should not be empty\");",
+									"});",
+									"",
+									"",
+									"// pm.test(\"Response time is less than 200ms\", function () {",
+									"//     pm.expect(pm.response.responseTime).to.be.below(200);",
+									"// });",
+									"var responseData = pm.response.json();",
+									"",
+									"// Save tokens to Postman variables",
+									"pm.test(\"Tokens are saved to Postman variables\", function () {",
+									"    pm.environment.set(\"token\", responseData.accessToken);",
+									"    pm.environment.set(\"refreshToken\", responseData.refreshToken);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"rishad.nur007@gmail.com\",\n  \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login as Admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"nkmkibria@gmail.com\",\n  \"password\": \"Password123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "701"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2bd-xSWIUUObOa+NjxZJbQ22WJlNmH0\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 13:29:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWRiNWI0ZS02ZjY1LTQ4OTMtYjA1MS0xOTk3NTk5N2ZkZGMiLCJlbWFpbCI6ImFkbWluQGJydXIuZWR1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU1ODY5MzY0LCJleHAiOjE3NTU4Njk5NjR9.FVI8WPHnZcp-BbmfF76M8Ugb8lJyiFkocEc53cv9Gmw\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWRiNWI0ZS02ZjY1LTQ4OTMtYjA1MS0xOTk3NTk5N2ZkZGMiLCJlbWFpbCI6ImFkbWluQGJydXIuZWR1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU1ODY5MzY0LCJleHAiOjE3NTU5NTU3NjR9.ZLrAgE_9wX6FhFU8D5GwGWtAqM5EhZmIf5SGWAHY5BQ\",\n    \"user\": {\n        \"id\": \"dedb5b4e-6f65-4893-b051-19975997fddc\",\n        \"email\": \"admin@brur.edu\",\n        \"phoneNumber\": \"01712345679\",\n        \"role\": \"admin\",\n        \"isEmailVerified\": true,\n        \"createdAt\": \"2025-08-19T12:00:15.017Z\"\n    }\n}"
+						},
+						{
+							"name": "Login as User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"Password123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "3"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "14"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "706"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c2-YQPmU85Eu8MEBqJyCDwZWhkwLTQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 13:30:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTVkOWIwNS0yY2VkLTQ2MWQtOGZmZi0wYzE5NDE4YTczMWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NTg2OTQ0OCwiZXhwIjoxNzU1ODcwMDQ4fQ.9ctbWRb03fUjpijTTywVKmmlXOASZTG2b8LtxDJFsiY\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTVkOWIwNS0yY2VkLTQ2MWQtOGZmZi0wYzE5NDE4YTczMWMiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NTg2OTQ0OCwiZXhwIjoxNzU1OTU1ODQ4fQ.lOixKA9DFEESF7Ost8PBhiiv6U6nmwr_qC0WrP-GcjU\",\n    \"user\": {\n        \"id\": \"5e5d9b05-2ced-461d-8fff-0c19418a731c\",\n        \"email\": \"user@example.com\",\n        \"phoneNumber\": \"01712345678\",\n        \"role\": \"user\",\n        \"isEmailVerified\": true,\n        \"createdAt\": \"2025-08-19T12:56:49.399Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Email Verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"nkmkibria@gmail.com\",\n    \"verificationCode\" : \"453778\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/verify-email",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"verify-email"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Verification Code Required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"user1@example.com\",\n    \"verificationCode\" : \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/verify-email",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"verify-email"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "3"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "18"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8c-TqpltqXHVyxqXRXHysgJ3C1VuAs\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:35:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"Verification code must be exactly 6 characters\",\n        \"verificationCode should not be empty\"\n    ],\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"user1@example.com\",\n    \"verificationCode\" : \"163650\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/verify-email",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"verify-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-FwmB7f+DMIStv83qlAh+ZHaWnfU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:38:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Email verified successfully\"\n}"
+						},
+						{
+							"name": "Invalid Verification Code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"user5@example.com\",\n    \"verificationCode\" : \"163650\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/verify-email",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"verify-email"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"59-v1Q6haedPCHno/cehbxfTSGuLJU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:42:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid or expired verification code\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Resend Verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"nkmkibria@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/resend-verification",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"resend-verification"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Email required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/resend-verification",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"resend-verification"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-iKgO56RFDxMVkoqMsv0glqbxNlk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:40:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"email should not be empty\",\n        \"email must be an email\"\n    ],\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test@test.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/resend-verification",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"resend-verification"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-FOxjajr/HQABgRdYAtRyxpCBemM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:41:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Verification code sent successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.all.keys('accessToken', 'refreshToken');",
+									"});",
+									"",
+									"",
+									"pm.test(\"AccessToken is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.accessToken).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"AccessToken should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"RefreshToken must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.refreshToken).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"RefreshToken should not be empty\");",
+									"});",
+									"",
+									"",
+									"// pm.test(\"Response time is less than 200ms\", function () {",
+									"//     pm.expect(pm.response.responseTime).to.be.below(200);",
+									"// });",
+									"var responseData = pm.response.json();",
+									"",
+									"// Save tokens to Postman variables",
+									"pm.test(\"Tokens are saved to Postman variables\", function () {",
+									"    pm.environment.set(\"token\", responseData.accessToken);",
+									"    pm.environment.set(\"refreshToken\", responseData.refreshToken);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\" : \"{{refreshToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/refresh-token",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\" : \"{{refreshToken}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/refresh-token",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "2"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "518"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"206-H/2l6Rc6hDA58kkM0NWHdaMG5as\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:47:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWRiNWI0ZS02ZjY1LTQ4OTMtYjA1MS0xOTk3NTk5N2ZkZGMiLCJlbWFpbCI6ImFkbWluQGJydXIuZWR1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU1ODY2ODU1LCJleHAiOjE3NTU4Njc0NTV9.f9qD0hhil8M9U5d1KZH1_kJ8gCkEyTguCb7C_5SLcaw\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWRiNWI0ZS02ZjY1LTQ4OTMtYjA1MS0xOTk3NTk5N2ZkZGMiLCJlbWFpbCI6ImFkbWluQGJydXIuZWR1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU1ODY2ODU1LCJleHAiOjE3NTU5NTMyNTV9.TSe6hjYeGkN-tMT2GGs5JvLWU6lQlvjLYNEhA41LgYU\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"nkmkibria@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/forgot-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test@test.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/forgot-password",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"forgot-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-Hve3DhjLFoXD+QV9dhEZI1P2Pf0\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 12:55:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"If the email exists, a reset link has been sent\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"resetToken\" : \"b6ac15d7fea25ec10bd31093c978498d9c90096cc766738cfc0a341af16d612f\",\n    \"newPassword\" : \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/reset-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"resetToken\" : \"sdfgdfgh\",\n    \"newPassword\" : \"Password123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/reset-password",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "2"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "20"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-Er/1AB3OJhyhQxAjBrc7MWImRM4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 13:08:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid or expired reset token\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Invalid Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"resetToken\" : \"sdfgdfgh\",\n    \"newPassword\" : \"Password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/reset-password",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "6"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a6-xMOY6x4U1I6PbgwEToMOxOY/H3k\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 13:09:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"Password must contain at least one uppercase letter, one lowercase letter, one number and one special character\"\n    ],\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"resetToken\" : \"b6ac15d7fea25ec10bd31093c978498d9c90096cc766738cfc0a341af16d612f\",\n    \"newPassword\" : \"Password123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/auth/reset-password",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "43"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-JLWAnLrf6qmJkXqaEuCQpWt9O0c\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 13:09:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Password reset successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "Draft Application",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "registrationNo",
+									"value": "000008037",
+									"type": "text"
+								},
+								{
+									"key": "nameInBengali",
+									"value": "ংিরিপির র্িিুপর্িিুপর",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "fatherName",
+									"value": "mf tarel",
+									"type": "text"
+								},
+								{
+									"key": "motherName",
+									"value": "mf sfdg",
+									"type": "text"
+								},
+								{
+									"key": "presentAddress",
+									"value": "dhaka, bangladesh",
+									"type": "text"
+								},
+								{
+									"key": "permanentAddress",
+									"value": "Rangpur, bangladesh",
+									"type": "text"
+								},
+								{
+									"key": "occupation",
+									"value": "Student",
+									"type": "text"
+								},
+								{
+									"key": "profileImage",
+									"description": "Upload 300x300 Image with max 200 KB",
+									"type": "file",
+									"src": "postman-cloud:///1f07f686-2b8f-4420-8653-2f858ad6da14"
+								},
+								{
+									"key": "registrationType",
+									"value": "bachelor",
+									"type": "text"
+								},
+								{
+									"key": "notes",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "nationality",
+									"value": "Bangladeshi",
+									"type": "text"
+								},
+								{
+									"key": "degrees[0][degreeType]",
+									"value": "undergraduate",
+									"type": "text"
+								},
+								{
+									"key": "degrees[0][studentIdNumber]",
+									"value": "1705002",
+									"type": "text"
+								},
+								{
+									"key": "degrees[0][examYear]",
+									"value": "2017",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "provisionalCertificateUndergraduate",
+									"description": "jpg, jpeg, png or pdf , max 500 KB",
+									"type": "file",
+									"src": "postman-cloud:///1f07f98c-01e1-4980-bdb8-9663baedc4a3"
+								},
+								{
+									"key": "degrees[0][provisionalCertificateNumber]",
+									"value": "3254635634637",
+									"type": "text"
+								},
+								{
+									"key": "signatureImage",
+									"description": "Upload 300 x 80 , max 100 KB",
+									"type": "file",
+									"src": "postman-cloud:///1f07f85a-de10-4ab0-94a1-9b516f14e66a"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/applications/draft",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"draft"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Missing Field",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"registrationNo\": \"000009982\",\n    \"nameInBengali\" : \"ংিরিপির র্িিুপর্িিুপর\",\n    \"fatherName\": \"mf tarel\",\n    \"motherName\": \"mf sfdg\",\n    \"presentAddress\": \"dhaka, bangladesh\",\n    \"permanentAddress\": \"Rangpur, bangladesh\",\n    \"occupation\": \"Student\",\n    \"imageUrl\": \"https://test.com/test123.jpg\",\n    \"registrationType\": \"bachelor\",\n    \"notes\": \"test\",\n    \"degrees\": [\n        {\n            \"degreeType\" : \"undergraduate\",\n            \"studentIdNumber\" : \"1705002\",\n            \"examYear\": \"2017\",\n            \"provisionalCertificateUrl\" : \"https://test.sfg/sdfgffsgh\",\n            \"provisionalCertificateNumber\" : \"3254635634637t8\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/draft",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"draft"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"75-qC7gNTdYa/P5qD4QTrGBw4E/dg4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:57:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"nationality should not be empty\",\n        \"nationality must be a string\"\n    ],\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "No Student Data Found for degree type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"registrationNo\": \"000009982\",\n    \"nameInBengali\" : \"ংিরিপির র্িিুপর্িিুপর\",\n    \"fatherName\": \"mf tarel\",\n    \"motherName\": \"mf sfdg\",\n    \"presentAddress\": \"dhaka, bangladesh\",\n    \"permanentAddress\": \"Rangpur, bangladesh\",\n    \"occupation\": \"Student\",\n    \"imageUrl\": \"https://test.com/test123.jpg\",\n    \"registrationType\": \"bachelor\",\n    \"notes\": \"test\",\n    \"nationality\": \"Bangladeshi\",\n    \"degrees\": [\n        {\n            \"degreeType\" : \"graduate\",\n            \"studentIdNumber\" : \"1705002\",\n            \"examYear\": \"2017\",\n            \"provisionalCertificateUrl\" : \"https://test.sfg/sdfgffsgh\",\n            \"provisionalCertificateNumber\" : \"3254635634637t8\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/draft",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"draft"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7f-ywTT2SKj1vsCUkIdMEYRSrHgTf8\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:59:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No student found with registration number: 000009982 & degree type: graduate\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+						},
+						{
+							"name": "Already Submitted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"registrationNo\": \"000009982\",\n    \"nameInBengali\" : \"ংিরিপির র্িিুপর্িিুপর\",\n    \"fatherName\": \"mf tarel\",\n    \"motherName\": \"mf sfdg\",\n    \"presentAddress\": \"dhaka, bangladesh\",\n    \"permanentAddress\": \"Rangpur, bangladesh\",\n    \"occupation\": \"Student\",\n    \"imageUrl\": \"https://test.com/test123.jpg\",\n    \"registrationType\": \"bachelor\",\n    \"notes\": \"test\",\n    \"nationality\": \"Bangladeshi\",\n    \"degrees\": [\n        {\n            \"degreeType\" : \"graduate\",\n            \"studentIdNumber\" : \"1705002\",\n            \"examYear\": \"2017\",\n            \"provisionalCertificateUrl\" : \"https://test.sfg/sdfgffsgh\",\n            \"provisionalCertificateNumber\" : \"3254635634637t8\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/draft",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"draft"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"85-mlRW03BUssypiT7vWuQkuKMDnns\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 06:01:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Can only update draft applications. This application has already been submitted.\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Rediness",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/applications/check-readiness",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"check-readiness"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "No Draft",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"registrationNo\": \"000011352\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/check-readiness",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"check-readiness"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"63-HxqjRuSMOX6pNKOS0EuZA8GpSCc\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 06:01:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Can only check readiness of draft applications\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Is Ready",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"registrationNo\": \"000011352\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/check-readiness",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"check-readiness"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1407"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57f-nKIBZ836C1Pi581IYZ/nERMhlFk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 06:02:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isReady\": true,\n    \"missingFields\": [],\n    \"application\": {\n        \"id\": \"af9f31e5-5cbe-4e9d-8576-6249a4af4b4f\",\n        \"userId\": \"dedb5b4e-6f65-4893-b051-19975997fddc\",\n        \"status\": \"draft\",\n        \"registrationType\": \"bachelor\",\n        \"registrationNo\": \"000009982\",\n        \"studentName\": null,\n        \"nameInBengali\": \"ংিরিপির র্িিুপর্িিুপর\",\n        \"fatherName\": \"mf tarel\",\n        \"motherName\": \"mf sfdg\",\n        \"presentAddress\": \"dhaka, bangladesh\",\n        \"permanentAddress\": \"Rangpur, bangladesh\",\n        \"occupation\": \"Student\",\n        \"imageUrl\": \"https://test.com/test123.jpg\",\n        \"nationality\": \"Bangladeshi\",\n        \"notes\": \"test\",\n        \"submittedAt\": null,\n        \"approvedAt\": null,\n        \"rejectedAt\": null,\n        \"rejectionReason\": null,\n        \"degrees\": [\n            {\n                \"id\": \"d3016f77-966c-4705-b42d-039d491ca173\",\n                \"applicationId\": \"af9f31e5-5cbe-4e9d-8576-6249a4af4b4f\",\n                \"studentId\": null,\n                \"degreeShortType\": \"undergraduate\",\n                \"degreeType\": \"Computer Science and Engineering\",\n                \"registrationNo\": \"000009982\",\n                \"studentName\": \"Raisa Jannat Anonna\",\n                \"department\": \"Computer Science and Engineering\",\n                \"degree\": \"Bachelor of Science (Engineering)\",\n                \"session\": \"2017\",\n                \"cgpa\": \"3.14\",\n                \"passingYear\": \"2022\",\n                \"examYear\": \"2017\",\n                \"provisionalCertificateUrl\": \"https://test.sfg/sdfgffsgh\",\n                \"provisionalCertificateNumber\": \"3254635634637t8\",\n                \"status\": \"draft\",\n                \"approvedAt\": null,\n                \"rejectedAt\": null,\n                \"rejectionReason\": null,\n                \"createdAt\": \"2025-08-21T23:57:27.262Z\",\n                \"updatedAt\": \"2025-08-21T23:57:27.262Z\"\n            }\n        ],\n        \"createdAt\": \"2025-08-21T23:53:50.260Z\",\n        \"updatedAt\": \"2025-08-21T23:53:50.260Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Submit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/applications/submit",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"submit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Application status not Drafted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/submit",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"submit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57-+cUqgf8y8rEnhFxNSNmwniIKAAU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:52:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Can only submit draft applications\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "No Application Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/submit",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"submit"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-KhqxXVBBtADdsujcmT4qki+T34E\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:53:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Application not found\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+						},
+						{
+							"name": "Submit Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/applications/submit",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"submit"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1400"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"578-CiSrOakvguVlbXUJaj0Mzq/ADGY\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 06:02:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"af9f31e5-5cbe-4e9d-8576-6249a4af4b4f\",\n    \"userId\": \"dedb5b4e-6f65-4893-b051-19975997fddc\",\n    \"status\": \"submitted\",\n    \"registrationType\": \"bachelor\",\n    \"registrationNo\": \"000009982\",\n    \"studentName\": \"Raisa Jannat Anonna\",\n    \"nameInBengali\": \"ংিরিপির র্িিুপর্িিুপর\",\n    \"fatherName\": \"mf tarel\",\n    \"motherName\": \"mf sfdg\",\n    \"presentAddress\": \"dhaka, bangladesh\",\n    \"permanentAddress\": \"Rangpur, bangladesh\",\n    \"occupation\": \"Student\",\n    \"imageUrl\": \"https://test.com/test123.jpg\",\n    \"nationality\": \"Bangladeshi\",\n    \"notes\": \"test\",\n    \"submittedAt\": \"2025-08-22T06:02:34.294Z\",\n    \"approvedAt\": null,\n    \"rejectedAt\": null,\n    \"rejectionReason\": null,\n    \"degrees\": [\n        {\n            \"id\": \"d3016f77-966c-4705-b42d-039d491ca173\",\n            \"applicationId\": \"af9f31e5-5cbe-4e9d-8576-6249a4af4b4f\",\n            \"studentId\": null,\n            \"degreeShortType\": \"undergraduate\",\n            \"degreeType\": \"Computer Science and Engineering\",\n            \"registrationNo\": \"000009982\",\n            \"studentName\": \"Raisa Jannat Anonna\",\n            \"department\": \"Computer Science and Engineering\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"session\": \"2017\",\n            \"cgpa\": \"3.14\",\n            \"passingYear\": \"2022\",\n            \"examYear\": \"2017\",\n            \"provisionalCertificateUrl\": \"https://test.sfg/sdfgffsgh\",\n            \"provisionalCertificateNumber\": \"3254635634637t8\",\n            \"status\": \"draft\",\n            \"approvedAt\": null,\n            \"rejectedAt\": null,\n            \"rejectionReason\": null,\n            \"createdAt\": \"2025-08-21T23:57:27.262Z\",\n            \"updatedAt\": \"2025-08-21T23:57:27.262Z\"\n        }\n    ],\n    \"createdAt\": \"2025-08-21T23:53:50.260Z\",\n    \"updatedAt\": \"2025-08-22T00:02:34.296Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get My Application",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications/my-application",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"my-application"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/applications/my-application",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"my-application"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1404"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57c-3J5v1mY7Nxj5QOtnxfsKeaGWXK8\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:50:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"f0c5e8a2-98b7-4df1-a924-958160900fb4\",\n    \"userId\": \"5e5d9b05-2ced-461d-8fff-0c19418a731c\",\n    \"status\": \"submitted\",\n    \"registrationType\": \"bachelor\",\n    \"registrationNo\": \"000009982\",\n    \"studentName\": \"Raisa Jannat Anonna\",\n    \"nameInBengali\": \"ংিরিপির র্িিুপর্িিুপর\",\n    \"fatherName\": \"mf tarel\",\n    \"motherName\": \"mf sfdg\",\n    \"presentAddress\": \"dhaka, bangladesh\",\n    \"permanentAddress\": \"Rangpur, bangladesh\",\n    \"occupation\": \"Student\",\n    \"imageUrl\": \"https://test.com/test123.jpg\",\n    \"nationality\": \"Bangladeshi\",\n    \"notes\": \"test\",\n    \"submittedAt\": \"2025-08-21T19:03:25.642Z\",\n    \"approvedAt\": null,\n    \"rejectedAt\": null,\n    \"rejectionReason\": null,\n    \"degrees\": [\n        {\n            \"id\": \"9c450375-8950-42d3-a508-3141e21637a9\",\n            \"applicationId\": \"f0c5e8a2-98b7-4df1-a924-958160900fb4\",\n            \"studentId\": null,\n            \"degreeShortType\": \"undergraduate\",\n            \"degreeType\": \"Computer Science and Engineering\",\n            \"registrationNo\": \"000009982\",\n            \"studentName\": \"Raisa Jannat Anonna\",\n            \"department\": \"Computer Science and Engineering\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"session\": \"2017\",\n            \"cgpa\": \"3.14\",\n            \"passingYear\": \"2022\",\n            \"examYear\": \"2017\",\n            \"provisionalCertificateUrl\": \"https://test.sfg/sdfgffsgh\",\n            \"provisionalCertificateNumber\": \"3254635634637t8\",\n            \"status\": \"submitted\",\n            \"approvedAt\": null,\n            \"rejectedAt\": null,\n            \"rejectionReason\": null,\n            \"createdAt\": \"2025-08-21T13:02:13.459Z\",\n            \"updatedAt\": \"2025-08-21T13:03:25.656Z\"\n        }\n    ],\n    \"createdAt\": \"2025-08-21T12:37:03.915Z\",\n    \"updatedAt\": \"2025-08-21T13:03:25.649Z\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/applications/my-application",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"applications",
+										"my-application"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-KhqxXVBBtADdsujcmT4qki+T34E\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 05:51:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Application not found\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+						}
+					]
+				},
+				{
+					"name": "[Admin] All Applications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Admin] All Applications CSV",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c4ace5bd-c45e-49e1-a3c5-c01d658c8190"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Admin] PDF Form Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications/:id/form-status",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								":id",
+								"form-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8a152825-e173-4c3d-9909-af6406ddc51e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Admin] Download FORM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/applications/degree/:degreeId/application-form",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"degree",
+								":degreeId",
+								"application-form"
+							],
+							"variable": [
+								{
+									"key": "degreeId",
+									"value": "cd17a9dc-3a48-49f5-9019-e4619bd9f2c8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseURL}}/applications/stats",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"applications",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "[Admin] All Students",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students?page=1&limit=20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Students",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students?page=1&limit=20",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "8298"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"206a-qpJBqltjLJoHh58+4hfrEOqc+D4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 10:27:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"students\": [\n        {\n            \"id\": \"fac6eba4-44e9-46cd-a89f-f0f81f9fe8dd\",\n            \"studentName\": \"Bina Rani\",\n            \"registrationNo\": \"000008640\",\n            \"gender\": \"female\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2016\",\n            \"cgpa\": \"2.95\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.155Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.155Z\"\n        },\n        {\n            \"id\": \"076e23b0-44cb-461f-a8ff-f25a4d3d58d9\",\n            \"studentName\": \"Tonmoy Kumar Roy\",\n            \"registrationNo\": \"000009992\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2017\",\n            \"cgpa\": \"3.40\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.154Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.154Z\"\n        },\n        {\n            \"id\": \"ecf05445-58dd-4fc6-b13c-1a88d39ee579\",\n            \"studentName\": \"Sarmin Akter\",\n            \"registrationNo\": \"000009984\",\n            \"gender\": \"female\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2017\",\n            \"cgpa\": \"3.58\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.153Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.153Z\"\n        },\n        {\n            \"id\": \"102010c4-6afe-4bf6-809b-8a3139c4c749\",\n            \"studentName\": \"Raisa Jannat Anonna\",\n            \"registrationNo\": \"000009982\",\n            \"gender\": \"female\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2017\",\n            \"cgpa\": \"3.14\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.151Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.151Z\"\n        },\n        {\n            \"id\": \"524b9dda-cb73-4dc9-bec7-cc533ab4245b\",\n            \"studentName\": \"Md. Piarujjaman Polash\",\n            \"registrationNo\": \"000011395\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.21\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.150Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.150Z\"\n        },\n        {\n            \"id\": \"ea4e588d-7415-4f1b-9270-16b3100e4795\",\n            \"studentName\": \"Emtiaz Ahmed\",\n            \"registrationNo\": \"000011394\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.31\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.149Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.149Z\"\n        },\n        {\n            \"id\": \"fcc3482f-d424-4e5f-8d52-9befcde434f3\",\n            \"studentName\": \"Faria Sabrin Jui\",\n            \"registrationNo\": \"000011393\",\n            \"gender\": \"female\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.22\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.147Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.147Z\"\n        },\n        {\n            \"id\": \"5eb171e1-2df9-4093-aece-2f3904f521d0\",\n            \"studentName\": \"Montu Mohanto\",\n            \"registrationNo\": \"000011392\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.08\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.145Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.145Z\"\n        },\n        {\n            \"id\": \"8658d72d-70e0-4e19-962b-8a969bead950\",\n            \"studentName\": \"Md. Sohel Rana\",\n            \"registrationNo\": \"000011391\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.11\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.144Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.144Z\"\n        },\n        {\n            \"id\": \"86602bba-6758-4d95-af73-ab39f0010b99\",\n            \"studentName\": \"Muhammad  Abdullah Al Asif\",\n            \"registrationNo\": \"000011390\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.01\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.142Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.142Z\"\n        },\n        {\n            \"id\": \"2a61bc90-9b30-431d-b339-e8c62469a95e\",\n            \"studentName\": \"Md. Shohanur Islam\",\n            \"registrationNo\": \"000011388\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.46\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.141Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.141Z\"\n        },\n        {\n            \"id\": \"4fc121f2-b677-426f-bfc0-b8c19b29c0b4\",\n            \"studentName\": \"Shahidul Ahad Sakib\",\n            \"registrationNo\": \"000011387\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.23\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.140Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.140Z\"\n        },\n        {\n            \"id\": \"5cde6f8c-b0bf-4605-aa72-8aafe7bcc845\",\n            \"studentName\": \"Md. Wahid Ahmed Shanto\",\n            \"registrationNo\": \"000011386\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.25\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.139Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.139Z\"\n        },\n        {\n            \"id\": \"b9ef326a-42ba-4518-9f91-c616d75b7aa3\",\n            \"studentName\": \"Imran Islam\",\n            \"registrationNo\": \"000011385\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.23\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.137Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.137Z\"\n        },\n        {\n            \"id\": \"f1e6bf15-4821-468b-ad34-858d1cfe11cd\",\n            \"studentName\": \"Shamim Ahammad  Rasel\",\n            \"registrationNo\": \"000011382\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.47\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.136Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.136Z\"\n        },\n        {\n            \"id\": \"a0dd2953-1466-4362-a716-5e1300c40c30\",\n            \"studentName\": \"Abdulla-Al-Maruf\",\n            \"registrationNo\": \"000011381\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.13\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.134Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.134Z\"\n        },\n        {\n            \"id\": \"b899a701-8f26-4b44-bbf8-fa043eae769a\",\n            \"studentName\": \"Khandaker Mushfiq Zaman\",\n            \"registrationNo\": \"000011380\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.26\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.133Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.133Z\"\n        },\n        {\n            \"id\": \"d11b6491-5e53-40f2-9d2b-88857471e067\",\n            \"studentName\": \"Mst. Atika Yasmin\",\n            \"registrationNo\": \"000011379\",\n            \"gender\": \"female\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.48\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.131Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.131Z\"\n        },\n        {\n            \"id\": \"8b3dfde4-0035-429f-a73c-98b8b4cbd422\",\n            \"studentName\": \"Md. Rahmat Ali\",\n            \"registrationNo\": \"000011378\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.25\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.129Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.129Z\"\n        },\n        {\n            \"id\": \"3b2c06c4-7db3-4576-9bfd-27baeb6e2692\",\n            \"studentName\": \"Alif Mia\",\n            \"registrationNo\": \"000011377\",\n            \"gender\": \"male\",\n            \"department\": \"Computer Science and Engineering\",\n            \"subjectCode\": \"05\",\n            \"graduateShort\": \"ug\",\n            \"degree\": \"Bachelor of Science (Engineering)\",\n            \"degreeType\": \"bachelor\",\n            \"session\": \"2018\",\n            \"cgpa\": \"3.26\",\n            \"passingYear\": \"2022\",\n            \"createdAt\": \"2025-08-19T12:05:56.127Z\",\n            \"updatedAt\": \"2025-08-19T12:05:56.127Z\"\n        }\n    ],\n    \"total\": 44,\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "[Auth] Student by Reg No",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students/search-by-registration/:registrationNo?professional=false",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"search-by-registration",
+								":registrationNo"
+							],
+							"query": [
+								{
+									"key": "professional",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "registrationNo",
+									"value": "000009177"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Only Honours",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students/search-by-registration/:registrationNo",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										"search-by-registration",
+										":registrationNo"
+									],
+									"variable": [
+										{
+											"key": "registrationNo",
+											"value": "000009982"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "417"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a1-9rYokfvpaYsL3bg5xyXFipJuBOo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 10:38:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"102010c4-6afe-4bf6-809b-8a3139c4c749\",\n        \"studentName\": \"Raisa Jannat Anonna\",\n        \"registrationNo\": \"000009982\",\n        \"gender\": \"female\",\n        \"department\": \"Computer Science and Engineering\",\n        \"subjectCode\": \"05\",\n        \"graduateShort\": \"ug\",\n        \"degree\": \"Bachelor of Science (Engineering)\",\n        \"degreeType\": \"bachelor\",\n        \"session\": \"2017\",\n        \"cgpa\": \"3.14\",\n        \"passingYear\": \"2022\",\n        \"createdAt\": \"2025-08-19T12:05:56.151Z\",\n        \"updatedAt\": \"2025-08-19T12:05:56.151Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "[Admin] Import CSV",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/nawab/Downloads/vvv.csv"
+								},
+								{
+									"key": "overrideExisting",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "skipDuplicates",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/students/upload-csv",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"upload-csv"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1f07e7e1-b200-4df0-9526-3dd227a00e94"
+										},
+										{
+											"key": "overrideExisting",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "skipDuplicates",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseURL}}/students/upload-csv",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										"upload-csv"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3f-6i4VEtDTEw7Dx2r5mGwzkPSz9aY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 11:02:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": 43,\n    \"successful\": 43,\n    \"failed\": 0,\n    \"skipped\": 0,\n    \"errors\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "[Admin] Add Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"studentName\": \"Md. Aminur Islam\",\n  \"registrationNo\": \"000011350\",\n  \"gender\": \"male\",\n  \"department\": \"Computer Science and Engineering\",\n  \"subjectCode\": \"05\",\n  \"graduateShort\": \"ug\",\n  \"degree\": \"Bachelor of Science (Engineering)\",\n  \"degreeType\": \"Computer Science and Engineering\",\n  \"session\": \"2018\",\n  \"cgpa\": 3.12,\n  \"passingYear\": \"2022\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/students/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"studentName\": \"Md. Aminur Islam\",\n  \"registrationNo\": \"000011350\",\n  \"gender\": \"male\",\n  \"department\": \"Computer Science and Engineering\",\n  \"subjectCode\": \"05\",\n  \"graduateShort\": \"ug\",\n  \"degree\": \"Bachelor of Science (Engineering)\",\n  \"degreeType\": \"Computer Science and Engineering\",\n  \"session\": \"2018\",\n  \"cgpa\": 3.12,\n  \"passingYear\": \"2022\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/students/",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "431"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1af-qxO9irWwZmo1pmExkGkR0wpnnJE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 11:20:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"42430664-9ab7-4002-8901-6a19eba602bd\",\n    \"studentName\": \"Md. Aminur Islam\",\n    \"registrationNo\": \"000011350\",\n    \"gender\": \"male\",\n    \"department\": \"Computer Science and Engineering\",\n    \"subjectCode\": \"05\",\n    \"graduateShort\": \"ug\",\n    \"degree\": \"Masters of Science (Engineering)\",\n    \"degreeType\": \"Computer Science and Engineering\",\n    \"session\": \"2024\",\n    \"cgpa\": 3.12,\n    \"passingYear\": \"2022\",\n    \"createdAt\": \"2025-08-21T05:20:34.522Z\",\n    \"updatedAt\": \"2025-08-21T05:20:34.522Z\"\n}"
+						},
+						{
+							"name": "Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"studentName\": \"Md. Aminur Islam\",\n  \"registrationNo\": \"000011350\",\n  \"gender\": \"male\",\n  \"department\": \"Computer Science and Engineering\",\n  \"subjectCode\": \"05\",\n  \"graduateShort\": \"ug\",\n  \"degree\": \"Bachelor of Science (Engineering)\",\n  \"degreeType\": \"Computer Science and Engineering\",\n  \"session\": \"2018\",\n  \"cgpa\": 3.12,\n  \"passingYear\": \"2022\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/students/",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										""
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "152"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"98-IylF3beWiltG0mvfSeMTNV0InK0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 11:23:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Student with registration number 000011350 and degree Bachelor of Science (Engineering) already exists\",\n    \"error\": \"Conflict\",\n    \"statusCode\": 409\n}"
+						}
+					]
+				},
+				{
+					"name": "[Admin] Update Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"session\" : \"2016\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/students/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "596c21b7-c1a5-423c-8b8c-881fb852fe50"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"session\" : \"2016\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/students/:id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "596c21b7-c1a5-423c-8b8c-881fb852fe50"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "439"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b7-vBKN1H1H/6jtyeF+UNOtxSYvqZw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:08:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"596c21b7-c1a5-423c-8b8c-881fb852fe50\",\n    \"studentName\": \"Raisa Jannat Anonna\",\n    \"registrationNo\": \"000009982\",\n    \"gender\": \"female\",\n    \"department\": \"Computer Science and Engineering\",\n    \"subjectCode\": \"05\",\n    \"graduateShort\": \"ug\",\n    \"degree\": \"Bachelor of Science (Engineering)\",\n    \"degreeType\": \"Computer Science and Engineering\",\n    \"session\": \"2016\",\n    \"cgpa\": \"3.14\",\n    \"passingYear\": \"2022\",\n    \"createdAt\": \"2025-08-21T05:02:36.079Z\",\n    \"updatedAt\": \"2025-08-21T06:08:05.859Z\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"session\" : \"2016\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/students/:id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "596c21b7-c1a5-423c-8b8c-881fb852fe51"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-U6gl6uv7Xp9qdZ7hShRDfBJUaXo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:08:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Student with ID 596c21b7-c1a5-423c-8b8c-881fb852fe51 not found\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+						}
+					]
+				},
+				{
+					"name": "[Admin] Delete Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "596c21b7-c1a5-423c-8b8c-881fb852fe50"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "No ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students/:id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"59-kArN5xCcYXjUJs5yv8pQBq+GJsU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:16:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation failed (uuid is expected)\",\n    \"error\": \"Bad Request\",\n    \"statusCode\": 400\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students/:id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "596c21b7-c1a5-423c-8b8c-881fb852fe50"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-AtjnaCnIxuYLqXagnN4yLTQXC/M\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:16:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Student deleted successfully\"\n}"
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students/:id",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "596c21b7-c1a5-423c-8b8c-881fb852fe50"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-jcW/es/4Ne3o1JRLn4a1KDXmuAA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:17:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Student with ID 596c21b7-c1a5-423c-8b8c-881fb852fe50 not found\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+						}
+					]
+				},
+				{
+					"name": "[Admin] Students Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students/stats",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"stats"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Stats Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/students/stats",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"students",
+										"stats"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "386"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"182-dqHhY04XWokdeQT1+s0GCaWEdqI\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 12:21:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"totalStudents\": 43,\n    \"byGender\": {\n        \"male\": 37,\n        \"female\": 6\n    },\n    \"byDegreeType\": {\n        \"Computer Science and Engineering\": 43\n    },\n    \"byGraduateShort\": {\n        \"ug\": 43\n    },\n    \"byDepartment\": {\n        \"Computer Science and Engineering\": 43\n    },\n    \"bySubjectCode\": {\n        \"05\": 43\n    },\n    \"byDegree\": {\n        \"Masters of Science (Engineering)\": 1,\n        \"Bachelor of Science (Engineering)\": 42\n    },\n    \"bySession\": {\n        \"2016\": 1,\n        \"2017\": 2,\n        \"2018\": 39,\n        \"2024\": 1\n    },\n    \"byPassingYear\": {\n        \"2022\": 43\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Student (Professional)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"studentName\": \"Md. Aminur Islam\",\n  \"registrationNo\": \"000045345\",\n  \"gender\": \"male\",\n  \"department\": \"Computer Science and Engineering\",\n  \"subjectCode\": \"05\",\n  \"graduateShort\": \"ug\",\n  \"degree\": \"Bachelor of Science (Engineering)\",\n  \"degreeType\": \"Computer Science and Engineering\",\n  \"session\": \"2018\",\n  \"cgpa\": 3.12,\n  \"passingYear\": \"2022\",\n  \"sessionType\": \"summer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/students/professional",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"students",
+								"professional"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Payment Initiate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/initiate",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"initiate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Payment Initiated Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/payments/initiate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"payments",
+										"initiate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "12487"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30c7-66tiPksqsIJdnoSF0nxV3e6vIEM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 06:30:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"SUCCESS\",\n    \"failedreason\": \"\",\n    \"sessionkey\": \"54137E98F1FD249FED36520D0E09AE08\",\n    \"gw\": {\n        \"visa\": \"city_visa,ebl_visa,visacard\",\n        \"master\": \"city_master,ebl_master,mastercard\",\n        \"amex\": \"city_amex,amexcard\",\n        \"othercards\": \"qcash,fastcash\",\n        \"internetbanking\": \"city,abbank,bankasia,ibbl,mtbl,tapnpay,eblsky,instapay,pmoney,woori,modhumoti,fsibl\",\n        \"mobilebanking\": \"dbblmobilebanking,bkash,nagad,abbank,ibbl,tap,upay,okaywallet,cellfine,mcash\"\n    },\n    \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtml.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=\",\n    \"directPaymentURLBank\": \"\",\n    \"directPaymentURLCard\": \"\",\n    \"directPaymentURL\": \"\",\n    \"redirectGatewayURLFailed\": \"\",\n    \"GatewayPageURL\": \"https://sandbox.sslcommerz.com/EasyCheckOut/testcde54137e98f1fd249fed36520d0e09ae08\",\n    \"storeBanner\": \"https://sandbox.sslcommerz.com/stores/logos/demoLogo.png\",\n    \"storeLogo\": \"https://sandbox.sslcommerz.com/stores/logos/demoLogo.png\",\n    \"store_name\": \"Demo\",\n    \"desc\": [\n        {\n            \"name\": \"AMEX\",\n            \"type\": \"amex\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/amex.png\",\n            \"gw\": \"amexcard\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=amexcard\"\n        },\n        {\n            \"name\": \"VISA\",\n            \"type\": \"visa\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/visa.png\",\n            \"gw\": \"visacard\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=visavard\"\n        },\n        {\n            \"name\": \"MASTER\",\n            \"type\": \"master\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/master.png\",\n            \"gw\": \"mastercard\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=mastercard\"\n        },\n        {\n            \"name\": \"AMEX-City Bank\",\n            \"type\": \"amex\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/amex.png\",\n            \"gw\": \"city_amex\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=city_amex\"\n        },\n        {\n            \"name\": \"QCash\",\n            \"type\": \"othercards\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/qcash.png\",\n            \"gw\": \"qcash\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=qcash\"\n        },\n        {\n            \"name\": \"Fast Cash\",\n            \"type\": \"othercards\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/fastcash.png\",\n            \"gw\": \"fastcash\"\n        },\n        {\n            \"name\": \"bKash\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/bkash.png\",\n            \"gw\": \"bkash\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=bkash\"\n        },\n        {\n            \"name\": \"Nagad\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/nagad.png\",\n            \"gw\": \"nagad\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=nagad\"\n        },\n        {\n            \"name\": \"DBBL Mobile Banking\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/dbblmobilebank.png\",\n            \"gw\": \"dbblmobilebanking\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=dbblmobilebanking\"\n        },\n        {\n            \"name\": \"AB Direct\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/abbank.png\",\n            \"gw\": \"abbank\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=abbank\"\n        },\n        {\n            \"name\": \"AB Direct\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/abbank.png\",\n            \"gw\": \"abbank\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=abbank\"\n        },\n        {\n            \"name\": \"IBBL\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/ibbl.png\",\n            \"gw\": \"ibbl\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=ibbl\"\n        },\n        {\n            \"name\": \"Citytouch\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/citytouch.png\",\n            \"gw\": \"city\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=city\"\n        },\n        {\n            \"name\": \"MTBL\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/mtbl.png\",\n            \"gw\": \"mtbl\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=mtbl\"\n        },\n        {\n            \"name\": \"Bank Asia\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/bankasia.png\",\n            \"gw\": \"bankasia\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=bankasia\"\n        },\n        {\n            \"name\": \"VISA-Eastern Bank Limited\",\n            \"type\": \"visa\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/visa.png\",\n            \"gw\": \"ebl_visa\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=ebl_visa\"\n        },\n        {\n            \"name\": \"MASTER-Eastern Bank Limited\",\n            \"type\": \"master\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/master.png\",\n            \"gw\": \"ebl_master\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=ebl_master\"\n        },\n        {\n            \"name\": \"VISA-City Bank\",\n            \"type\": \"visa\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/visa.png\",\n            \"gw\": \"city_visa\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=city_visa\"\n        },\n        {\n            \"name\": \"MASTER-City bank\",\n            \"type\": \"master\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/master.png\",\n            \"gw\": \"city_master\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=city_master\"\n        },\n        {\n            \"name\": \"TAP\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/tap.png\",\n            \"gw\": \"mobilemoney\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=mobilemoney\"\n        },\n        {\n            \"name\": \"upay\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/upay.png\",\n            \"gw\": \"upay\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=upay\"\n        },\n        {\n            \"name\": \"okaywallet\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/okwallet.png\",\n            \"gw\": \"okaywallet\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=okaywallet\"\n        },\n        {\n            \"name\": \"cellfine\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/cellfin.png\",\n            \"gw\": \"cellfine\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=cellfine\"\n        },\n        {\n            \"name\": \"mcash\",\n            \"type\": \"mobilebanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/ibblmobile.png\",\n            \"gw\": \"ibbl_m\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=ibbl_m\"\n        },\n        {\n            \"name\": \"tapnpay\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/tapnpay.png\",\n            \"gw\": \"tapnpay\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=tapnpay\"\n        },\n        {\n            \"name\": \"eblsky\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/eblsky.png\",\n            \"gw\": \"eblsky\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=eblsky\"\n        },\n        {\n            \"name\": \"instapay\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/instapay.png\",\n            \"gw\": \"instapay\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=instapay\"\n        },\n        {\n            \"name\": \"pmoney\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/pmoney.png\",\n            \"gw\": \"pmoney\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=pmoney\"\n        },\n        {\n            \"name\": \"woori\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/woori.png\",\n            \"gw\": \"woori\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=woori\"\n        },\n        {\n            \"name\": \"modhumoti\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/modhumoti.png\",\n            \"gw\": \"modhumoti\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=modhumoti\"\n        },\n        {\n            \"name\": \"fsibl\",\n            \"type\": \"internetbanking\",\n            \"logo\": \"https://sandbox.sslcommerz.com/gwprocess/v4/image/gw/FsiblCloudLogo.png\",\n            \"gw\": \"fsibl\",\n            \"r_flag\": \"1\",\n            \"redirectGatewayURL\": \"https://sandbox.sslcommerz.com/gwprocess/v4/bankgw/indexhtmlOTP.php?mamount=4000.00&ssl_id=2508221230230fzvxpD6HrA5Pzh&Q=REDIRECT&SESSIONKEY=54137E98F1FD249FED36520D0E09AE08&tran_type=success&cardname=fsibl\"\n        }\n    ],\n    \"is_direct_pay_enable\": \"0\"\n}"
+						},
+						{
+							"name": "Payment Already Completed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/payments/initiate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"payments",
+										"initiate"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"60-KB69zinf0TRa7OUyxgJGYUoAGbI\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 09:12:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Payment already completed for this application\",\n    \"error\": \"Conflict\",\n    \"statusCode\": 409\n}"
+						},
+						{
+							"name": "Payment Already initiated",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/payments/initiate",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"payments",
+										"initiate"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"79-hwBZoMa++iefUEyOH7yMRRiH4cQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Aug 2025 09:14:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Payment already exists. Use reinitiate endpoint to create a new payment\",\n    \"error\": \"Conflict\",\n    \"statusCode\": 409\n}"
+						}
+					]
+				},
+				{
+					"name": "Payment Reinitiate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/reinitiate",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"reinitiate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/my-payments",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"my-payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/stats",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Payment By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/my-payments/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"my-payments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "30e7ce81-f2eb-41fb-8e62-da857a4be33d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Slip",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/my-payment-slip",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								"my-payment-slip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paymet SLip by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/:id/payment-slip",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"payments",
+								":id",
+								"payment-slip"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "03502bb9-c2c3-41b9-a82b-bfead1584521"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
