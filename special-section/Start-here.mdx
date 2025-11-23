@@ -1,0 +1,33 @@
+---
+title: "Custom Free APIs"
+description: "This page contains free api documentation for learning"
+---
+
+<Note>
+  Hey shafiq and kibria. look at this page deeply. if you guys have any query,
+  please keep it to yourself. dont say to me. i am off now.
+</Note>
+
+## Welcome
+
+I have taken all the APIs from this [jsonPlaceHolder](https://jsonplaceholder.typicode.com/) page. so if the api does not work, then its promlem is with the site. not mine.
+
+<Card
+  title="jsonPlaceHolder"
+  icon="gear"
+  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+>
+  View the This page  specification file link for more APIs
+</Card>
+
+## Authentication
+
+All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+
+```json
+"security": [
+  {
+    "bearerAuth": []
+  }
+]
+```

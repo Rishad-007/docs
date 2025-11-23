@@ -14,7 +14,7 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Group name",
             "pages": ["index", "quickstart", "development"]
           },
           {
@@ -54,6 +54,22 @@
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "special section",
+        "groups": [
+          {
+            "group": "Special group",
+            "pages": ["special-section/Start-here"]
+          },
+          {
+            "group": "Another group",
+            "pages": [
+              "special-section/endpoint/get",
+              "special-section/endpoint/put"
             ]
           }
         ]
