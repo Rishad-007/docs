@@ -15,7 +15,12 @@
             "description": ""
           }
         },
-        "tags": ["App"]
+        "tags": [
+          "App"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/app/get-"
+        }
       }
     },
     "/networks": {
@@ -37,7 +42,11 @@
             "in": "query",
             "description": "Network type filter",
             "schema": {
-              "enum": ["mainnet", "testnet", "regtest"],
+              "enum": [
+                "mainnet",
+                "testnet",
+                "regtest"
+              ],
               "type": "string"
             }
           }
@@ -59,7 +68,12 @@
           }
         ],
         "summary": "List blockchain networks with optional filters",
-        "tags": ["Networks"]
+        "tags": [
+          "Networks"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/networks/list-blockchain-networks-with-optional-filters"
+        }
       }
     },
     "/safes": {
@@ -100,7 +114,12 @@
           }
         ],
         "summary": "Create a new safe",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/create-a-new-safe"
+        }
       },
       "get": {
         "operationId": "SafesController_getSafes",
@@ -142,7 +161,12 @@
           }
         ],
         "summary": "List safes for the authenticated user",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/list-safes-for-the-authenticated-user"
+        }
       }
     },
     "/safes/addresses/{addressId}": {
@@ -183,7 +207,12 @@
           }
         ],
         "summary": "Retrieve a specific address",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/retrieve-a-specific-address"
+        }
       }
     },
     "/safes/{safeId}/{blockchain}/{network}/addresses": {
@@ -260,7 +289,12 @@
           }
         ],
         "summary": "List addresses for a safe filtered by blockchain and network (paginated)",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/list-addresses-for-a-safe-filtered-by-blockchain-and-network-paginated"
+        }
       }
     },
     "/safes/{safeId}/addresses": {
@@ -335,7 +369,12 @@
           }
         ],
         "summary": "List addresses for a safe (paginated)",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/list-addresses-for-a-safe-paginated"
+        }
       }
     },
     "/safes/{safeId}/{blockchain}/{network}/generate": {
@@ -403,7 +442,12 @@
           }
         ],
         "summary": "Derive and store a new address",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/derive-and-store-a-new-address"
+        }
       }
     },
     "/safes/{safeId}/export": {
@@ -453,7 +497,12 @@
           }
         ],
         "summary": "Export the mnemonic and seed for a safe",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/export-the-mnemonic-and-seed-for-a-safe"
+        }
       }
     },
     "/safes/{safeId}/{blockchain}/{network}/{index}/private-key": {
@@ -530,7 +579,12 @@
           }
         ],
         "summary": "Export the private key for a derived address",
-        "tags": ["Safes"]
+        "tags": [
+          "Safes"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safes/export-the-private-key-for-a-derived-address"
+        }
       }
     },
     "/safes/{safeId}/permissions": {
@@ -574,7 +628,12 @@
           }
         ],
         "summary": "Grant permission to user for a safe",
-        "tags": ["Safe Permissions"]
+        "tags": [
+          "Safe Permissions"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safe-permissions/grant-permission-to-user-for-a-safe"
+        }
       },
       "get": {
         "operationId": "SafePermissionController_getSafePermissions",
@@ -606,7 +665,12 @@
           }
         ],
         "summary": "List all users with access to safe",
-        "tags": ["Safe Permissions"]
+        "tags": [
+          "Safe Permissions"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safe-permissions/list-all-users-with-access-to-safe"
+        }
       }
     },
     "/safes/{safeId}/permissions/{userId}": {
@@ -649,7 +713,12 @@
           }
         ],
         "summary": "Revoke permission from user",
-        "tags": ["Safe Permissions"]
+        "tags": [
+          "Safe Permissions"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/safe-permissions/revoke-permission-from-user"
+        }
       }
     },
     "/safes/{safeId}/threshold/configure": {
@@ -693,7 +762,12 @@
           }
         ],
         "summary": "Configure threshold signing for a safe",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/configure-threshold-signing-for-a-safe"
+        }
       }
     },
     "/safes/{safeId}/threshold/config": {
@@ -727,7 +801,12 @@
           }
         ],
         "summary": "Get threshold signing configuration for a safe",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/get-threshold-signing-configuration-for-a-safe"
+        }
       }
     },
     "/safes/{safeId}/signatures/sessions": {
@@ -771,7 +850,12 @@
           }
         ],
         "summary": "Create a signature session for a transaction",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/create-a-signature-session-for-a-transaction"
+        }
       },
       "get": {
         "operationId": "ThresholdSignatureController_getSafeSignatureSessions",
@@ -791,7 +875,12 @@
             "in": "query",
             "description": "Filter by status",
             "schema": {
-              "enum": ["PENDING", "COMPLETED", "REJECTED", "EXPIRED"],
+              "enum": [
+                "PENDING",
+                "COMPLETED",
+                "REJECTED",
+                "EXPIRED"
+              ],
               "type": "string"
             }
           }
@@ -813,7 +902,12 @@
           }
         ],
         "summary": "Get all signature sessions for a safe",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/get-all-signature-sessions-for-a-safe"
+        }
       }
     },
     "/safes/signatures/sessions/{sessionId}/sign": {
@@ -857,7 +951,12 @@
           }
         ],
         "summary": "Add a signature to a signature session",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/add-a-signature-to-a-signature-session"
+        }
       }
     },
     "/safes/signatures/sessions/{sessionId}/reject": {
@@ -891,7 +990,12 @@
           }
         ],
         "summary": "Reject a transaction signature",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/reject-a-transaction-signature"
+        }
       }
     },
     "/safes/signatures/sessions/{sessionId}": {
@@ -925,7 +1029,12 @@
           }
         ],
         "summary": "Get signature session details",
-        "tags": ["Threshold Signatures"]
+        "tags": [
+          "Threshold Signatures"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/threshold-signatures/get-signature-session-details"
+        }
       }
     },
     "/addresses/{addressId}/balance": {
@@ -958,7 +1067,12 @@
           }
         ],
         "summary": "Get native coin balance for an address",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/get-native-coin-balance-for-an-address"
+        }
       }
     },
     "/addresses/{addressId}/tokens/{tokenId}/estimate": {
@@ -1009,7 +1123,12 @@
           }
         ],
         "summary": "Estimate gas for an ERC20 token transfer",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/estimate-gas-for-an-erc20-token-transfer"
+        }
       }
     },
     "/addresses/{addressId}/tokens": {
@@ -1042,7 +1161,12 @@
           }
         ],
         "summary": "List ERC20 tokens tracked for an address",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/list-erc20-tokens-tracked-for-an-address"
+        }
       }
     },
     "/addresses/{addressId}/tokens/{tokenId}/balance": {
@@ -1083,7 +1207,12 @@
           }
         ],
         "summary": "Get ERC20 token balance for an address",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/get-erc20-token-balance-for-an-address"
+        }
       }
     },
     "/addresses/{addressId}/transactions/estimate": {
@@ -1126,7 +1255,12 @@
           }
         ],
         "summary": "Estimate network fees for a native transaction",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/estimate-network-fees-for-a-native-transaction"
+        }
       }
     },
     "/addresses/{addressId}/transactions": {
@@ -1178,7 +1312,12 @@
           }
         ],
         "summary": "Broadcast a native asset transaction",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/broadcast-a-native-asset-transaction"
+        }
       },
       "get": {
         "operationId": "EthereumController_getTransactionHistory",
@@ -1251,7 +1390,12 @@
           }
         ],
         "summary": "List native asset transactions with filters",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/list-native-asset-transactions-with-filters"
+        }
       }
     },
     "/addresses/{addressId}/tokens/{tokenId}/transfer": {
@@ -1311,7 +1455,12 @@
           }
         ],
         "summary": "Broadcast an ERC20 token transfer",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/broadcast-an-erc20-token-transfer"
+        }
       }
     },
     "/addresses/{addressId}/transactions/sync": {
@@ -1344,7 +1493,12 @@
           }
         ],
         "summary": "Trigger a sync of native transactions",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/trigger-a-sync-of-native-transactions"
+        }
       }
     },
     "/addresses/{addressId}/tokens/transactions/sync": {
@@ -1377,7 +1531,12 @@
           }
         ],
         "summary": "Trigger a sync of ERC20 token transactions",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/trigger-a-sync-of-erc20-token-transactions"
+        }
       }
     },
     "/addresses/{addressId}/tokens/{tokenId}/transactions": {
@@ -1460,7 +1619,12 @@
           }
         ],
         "summary": "List ERC20 token transactions with filters",
-        "tags": ["Addresses"]
+        "tags": [
+          "Addresses"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/addresses/list-erc20-token-transactions-with-filters"
+        }
       }
     },
     "/tenants/{tenantId}/transactions": {
@@ -1506,7 +1670,11 @@
             "description": "Transaction status filter",
             "schema": {
               "type": "string",
-              "enum": ["pending", "confirmed", "failed"]
+              "enum": [
+                "pending",
+                "confirmed",
+                "failed"
+              ]
             }
           },
           {
@@ -1516,7 +1684,10 @@
             "description": "Transaction direction filter",
             "schema": {
               "type": "string",
-              "enum": ["send", "receive"]
+              "enum": [
+                "send",
+                "receive"
+              ]
             }
           },
           {
@@ -1535,7 +1706,11 @@
             "description": "Asset type filter (all|coin|token)",
             "schema": {
               "type": "string",
-              "enum": ["all", "coin", "token"]
+              "enum": [
+                "all",
+                "coin",
+                "token"
+              ]
             }
           }
         ],
@@ -1556,7 +1731,12 @@
           }
         ],
         "summary": "List transactions scoped to a tenant",
-        "tags": ["Tenant Transactions"]
+        "tags": [
+          "Tenant Transactions"
+        ],
+        "x-mint": {
+          "href": "/special-section/endpoint/tenant-transactions/list-transactions-scoped-to-a-tenant"
+        }
       }
     }
   },
@@ -1594,7 +1774,11 @@
         "properties": {
           "networkType": {
             "type": "string",
-            "enum": ["mainnet", "testnet", "regtest"],
+            "enum": [
+              "mainnet",
+              "testnet",
+              "regtest"
+            ],
             "description": "Network type to derive addresses for",
             "example": "mainnet"
           },
@@ -1604,7 +1788,10 @@
             "example": "675aba468b0c6cd23b7a8c5e"
           }
         },
-        "required": ["networkType", "tenantId"]
+        "required": [
+          "networkType",
+          "tenantId"
+        ]
       },
       "CreateSafeResponseDto": {
         "type": "object",
@@ -1623,7 +1810,11 @@
           },
           "networkType": {
             "type": "string",
-            "enum": ["mainnet", "testnet", "regtest"],
+            "enum": [
+              "mainnet",
+              "testnet",
+              "regtest"
+            ],
             "description": "Network tier that the safe is configured for"
           },
           "addressCount": {
@@ -1665,7 +1856,11 @@
           },
           "networkType": {
             "type": "string",
-            "enum": ["mainnet", "testnet", "regtest"],
+            "enum": [
+              "mainnet",
+              "testnet",
+              "regtest"
+            ],
             "description": "Network tier that the safe is configured for"
           },
           "addressCount": {
@@ -1678,7 +1873,12 @@
             "description": "Safe creation timestamp"
           }
         },
-        "required": ["safeId", "isActive", "isExported", "networkType"]
+        "required": [
+          "safeId",
+          "isActive",
+          "isExported",
+          "networkType"
+        ]
       },
       "AddressDto": {
         "type": "object",
@@ -1763,7 +1963,10 @@
             "$ref": "#/components/schemas/AddressPaginationMetaDto"
           }
         },
-        "required": ["data", "pagination"]
+        "required": [
+          "data",
+          "pagination"
+        ]
       },
       "ExportSafeResponseDto": {
         "type": "object",
@@ -1784,7 +1987,12 @@
             "type": "string"
           }
         },
-        "required": ["safeId", "mnemonic", "seed", "exportedAt"]
+        "required": [
+          "safeId",
+          "mnemonic",
+          "seed",
+          "exportedAt"
+        ]
       },
       "ExportAddressResponseDto": {
         "type": "object",
@@ -1855,11 +2063,17 @@
           "scheme": {
             "type": "string",
             "description": "Signing scheme",
-            "enum": ["PERMISSION_BASED", "SINGLE_SIGNATURE"],
+            "enum": [
+              "PERMISSION_BASED",
+              "SINGLE_SIGNATURE"
+            ],
             "default": "PERMISSION_BASED"
           }
         },
-        "required": ["threshold", "totalSigners"]
+        "required": [
+          "threshold",
+          "totalSigners"
+        ]
       },
       "CreateSignatureSessionDto": {
         "type": "object",
@@ -1887,7 +2101,11 @@
             "minimum": 1
           }
         },
-        "required": ["addressId", "transactionHash", "transactionData"]
+        "required": [
+          "addressId",
+          "transactionHash",
+          "transactionData"
+        ]
       },
       "AddSignatureDto": {
         "type": "object",
@@ -1903,7 +2121,9 @@
             "example": "0xabcdef1234567890..."
           }
         },
-        "required": ["signature"]
+        "required": [
+          "signature"
+        ]
       },
       "EstimateTokenDto": {
         "type": "object",
@@ -1919,7 +2139,10 @@
             "example": "250"
           }
         },
-        "required": ["toAddress", "amount"]
+        "required": [
+          "toAddress",
+          "amount"
+        ]
       },
       "EstimateTransactionDto": {
         "type": "object",
@@ -1939,7 +2162,10 @@
             "description": "Optional call data for contract interactions"
           }
         },
-        "required": ["toAddress", "value"]
+        "required": [
+          "toAddress",
+          "value"
+        ]
       },
       "SendTransactionDto": {
         "type": "object",
@@ -1988,7 +2214,10 @@
             "description": "Optional fee rate override for Bitcoin-like chains"
           }
         },
-        "required": ["toAddress", "value"]
+        "required": [
+          "toAddress",
+          "value"
+        ]
       },
       "SendTokenDto": {
         "type": "object",
@@ -2029,7 +2258,10 @@
             "description": "Optional transfer notes"
           }
         },
-        "required": ["toAddress", "amount"]
+        "required": [
+          "toAddress",
+          "amount"
+        ]
       }
     }
   }

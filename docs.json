@@ -9,13 +9,27 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "icon": "book-open-cover",
+          "href": "https://mintlify.com/docs"
+        },
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://mintlify.com/blog"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Group name",
-            "pages": ["index", "quickstart", "development"]
+            "group": "General Information",
+            "pages": ["index", "quickstart", "development", "webhooks", "help"]
           },
           {
             "group": "Customization",
@@ -40,24 +54,6 @@
           }
         ]
       },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": ["api-reference/introduction"]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      },
 
       {
         "tab": "special section",
@@ -69,85 +65,69 @@
           {
             "group": "Addresses",
             "pages": [
-              "special-section/endpoint/addresses/get-native-coin-balance-for-an-address",
-              "special-section/endpoint/addresses/get-erc20-token-balance-for-an-address",
-              "special-section/endpoint/addresses/list-native-asset-transactions-with-filters",
-              "special-section/endpoint/addresses/list-erc20-token-transactions-with-filters",
-              "special-section/endpoint/addresses/list-erc20-tokens-tracked-for-an-address",
-              "special-section/endpoint/addresses/broadcast-a-native-asset-transaction",
-              "special-section/endpoint/addresses/broadcast-an-erc20-token-transfer",
-              "special-section/endpoint/addresses/estimate-network-fees-for-a-native-transaction",
-              "special-section/endpoint/addresses/estimate-gas-for-an-erc20-token-transfer",
-              "special-section/endpoint/addresses/trigger-a-sync-of-native-transactions",
-              "special-section/endpoint/addresses/trigger-a-sync-of-erc20-token-transactions"
+              "special-section/openapi.json get /addresses/{addressId}/balance",
+              "special-section/openapi.json get /addresses/{addressId}/tokens/{tokenId}/balance",
+              "special-section/openapi.json get /addresses/{addressId}/transactions",
+              "special-section/openapi.json get /addresses/{addressId}/tokens/{tokenId}/transactions",
+              "special-section/openapi.json get /addresses/{addressId}/tokens",
+              "special-section/openapi.json post /addresses/{addressId}/transactions",
+              "special-section/openapi.json post /addresses/{addressId}/tokens/{tokenId}/transfer",
+              "special-section/openapi.json post /addresses/{addressId}/transactions/estimate",
+              "special-section/openapi.json post /addresses/{addressId}/tokens/{tokenId}/estimate",
+              "special-section/openapi.json post /addresses/{addressId}/transactions/sync",
+              "special-section/openapi.json post /addresses/{addressId}/tokens/transactions/sync"
             ]
           },
           {
             "group": "Networks",
-            "pages": [
-              "special-section/endpoint/networks/list-blockchain-networks-with-optional-filters"
-            ]
+            "pages": ["special-section/openapi.json get /networks"]
           },
           {
             "group": "Safes",
             "pages": [
-              "special-section/endpoint/safes/create-a-new-safe",
-              "special-section/endpoint/safes/list-safes-for-the-authenticated-user",
-              "special-section/endpoint/safes/derive-and-store-a-new-address",
-              "special-section/endpoint/safes/list-addresses-for-a-safe-paginated",
-              "special-section/endpoint/safes/list-addresses-for-a-safe-filtered-by-blockchain-and-network-paginated",
-              "special-section/endpoint/safes/retrieve-a-specific-address",
-              "special-section/endpoint/safes/export-the-mnemonic-and-seed-for-a-safe",
-              "special-section/endpoint/safes/export-the-private-key-for-a-derived-address"
+              "special-section/openapi.json post /safes",
+              "special-section/openapi.json get /safes",
+              "special-section/openapi.json post /safes/{safeId}/{blockchain}/{network}/generate",
+              "special-section/openapi.json get /safes/{safeId}/addresses",
+              "special-section/openapi.json get /safes/{safeId}/{blockchain}/{network}/addresses",
+              "special-section/openapi.json get /safes/addresses/{addressId}",
+              "special-section/openapi.json post /safes/{safeId}/export",
+              "special-section/openapi.json post /safes/{safeId}/{blockchain}/{network}/{index}/private-key"
             ]
           },
           {
             "group": "Safe Permissions",
             "pages": [
-              "special-section/endpoint/safe-permissions/grant-permission-to-user-for-a-safe",
-              "special-section/endpoint/safe-permissions/list-all-users-with-access-to-safe",
-              "special-section/endpoint/safe-permissions/revoke-permission-from-user"
+              "special-section/openapi.json post /safes/{safeId}/permissions",
+              "special-section/openapi.json get /safes/{safeId}/permissions",
+              "special-section/openapi.json delete /safes/{safeId}/permissions/{userId}"
             ]
           },
           {
             "group": "Threshold Signatures",
             "pages": [
-              "special-section/endpoint/threshold-signatures/configure-threshold-signing-for-a-safe",
-              "special-section/endpoint/threshold-signatures/get-threshold-signing-configuration-for-a-safe",
-              "special-section/endpoint/threshold-signatures/create-a-signature-session-for-a-transaction",
-              "special-section/endpoint/threshold-signatures/get-all-signature-sessions-for-a-safe",
-              "special-section/endpoint/threshold-signatures/get-signature-session-details",
-              "special-section/endpoint/threshold-signatures/add-a-signature-to-a-signature-session",
-              "special-section/endpoint/threshold-signatures/reject-a-transaction-signature"
+              "special-section/openapi.json post /safes/{safeId}/threshold/configure",
+              "special-section/openapi.json get /safes/{safeId}/threshold/config",
+              "special-section/openapi.json post /safes/{safeId}/signatures/sessions",
+              "special-section/openapi.json get /safes/{safeId}/signatures/sessions",
+              "special-section/openapi.json get /safes/signatures/sessions/{sessionId}",
+              "special-section/openapi.json post /safes/signatures/sessions/{sessionId}/sign",
+              "special-section/openapi.json post /safes/signatures/sessions/{sessionId}/reject"
             ]
           },
           {
             "group": "Tenant Transactions",
             "pages": [
-              "special-section/endpoint/tenant-transactions/list-transactions-scoped-to-a-tenant"
+              "special-section/openapi.json get /tenants/{tenantId}/transactions"
             ]
           },
           {
             "group": "App",
-            "pages": ["special-section/endpoint/app/get-"]
+            "pages": ["special-section/openapi.json get /"]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
