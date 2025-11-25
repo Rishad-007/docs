@@ -1,0 +1,2036 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://10.0.146.134:3001/"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["App"]
+      }
+    },
+    "/networks": {
+      "get": {
+        "operationId": "NetworksController_getNetworks",
+        "parameters": [
+          {
+            "name": "blockchain",
+            "required": false,
+            "in": "query",
+            "description": "Blockchain name (e.g. ethereum, bitcoin)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Network type filter",
+            "schema": {
+              "enum": ["mainnet", "testnet", "regtest"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List blockchain networks with optional filters",
+        "tags": ["Networks"]
+      }
+    },
+    "/safes": {
+      "post": {
+        "operationId": "SafesController_createSafe",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSafeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSafeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Create a new safe",
+        "tags": ["Safes"]
+      },
+      "get": {
+        "operationId": "SafesController_getSafes",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "required": false,
+            "in": "query",
+            "description": "Filter safes by tenant",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SafeSummaryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List safes for the authenticated user",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/addresses/{addressId}": {
+      "get": {
+        "operationId": "SafesController_getAddress",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "description": "Address identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Retrieve a specific address",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/{blockchain}/{network}/addresses": {
+      "get": {
+        "operationId": "SafesController_getAddressesByBlockchainAndNetwork",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "External safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blockchain",
+            "required": true,
+            "in": "path",
+            "description": "Blockchain name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "network",
+            "required": true,
+            "in": "path",
+            "description": "Network name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List addresses for a safe filtered by blockchain and network (paginated)",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/addresses": {
+      "get": {
+        "operationId": "SafesController_getAddresses",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blockchain",
+            "required": false,
+            "in": "query",
+            "description": "Optional blockchain name filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "network",
+            "required": false,
+            "in": "query",
+            "description": "Optional network name filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List addresses for a safe (paginated)",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/{blockchain}/{network}/generate": {
+      "post": {
+        "operationId": "SafesController_generateAddress",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "network",
+            "required": true,
+            "in": "path",
+            "description": "Network name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blockchain",
+            "required": true,
+            "in": "path",
+            "description": "Blockchain name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-secret",
+            "in": "header",
+            "description": "API secret used to decrypt private material",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Derive and store a new address",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/export": {
+      "post": {
+        "operationId": "SafesController_exportSafe",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-secret",
+            "in": "header",
+            "description": "API secret used to decrypt the safe",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportSafeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Export the mnemonic and seed for a safe",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/{blockchain}/{network}/{index}/private-key": {
+      "post": {
+        "operationId": "SafesController_exportPrivateKey",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blockchain",
+            "required": true,
+            "in": "path",
+            "description": "Blockchain name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "network",
+            "required": true,
+            "in": "path",
+            "description": "Network name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "index",
+            "required": true,
+            "in": "path",
+            "description": "Derivation index",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-secret",
+            "in": "header",
+            "description": "API secret used to decrypt user keys",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportAddressResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Export the private key for a derived address",
+        "tags": ["Safes"]
+      }
+    },
+    "/safes/{safeId}/permissions": {
+      "post": {
+        "operationId": "SafePermissionController_grantPermission",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GrantPermissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Grant permission to user for a safe",
+        "tags": ["Safe Permissions"]
+      },
+      "get": {
+        "operationId": "SafePermissionController_getSafePermissions",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List all users with access to safe",
+        "tags": ["Safe Permissions"]
+      }
+    },
+    "/safes/{safeId}/permissions/{userId}": {
+      "delete": {
+        "operationId": "SafePermissionController_revokePermission",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "description": "User identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Revoke permission from user",
+        "tags": ["Safe Permissions"]
+      }
+    },
+    "/safes/{safeId}/threshold/configure": {
+      "post": {
+        "operationId": "ThresholdSignatureController_configureThreshold",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfigureThresholdDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Configure threshold signing for a safe",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/safes/{safeId}/threshold/config": {
+      "get": {
+        "operationId": "ThresholdSignatureController_getThresholdConfig",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Get threshold signing configuration for a safe",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/safes/{safeId}/signatures/sessions": {
+      "post": {
+        "operationId": "ThresholdSignatureController_createSignatureSession",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSignatureSessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Create a signature session for a transaction",
+        "tags": ["Threshold Signatures"]
+      },
+      "get": {
+        "operationId": "ThresholdSignatureController_getSafeSignatureSessions",
+        "parameters": [
+          {
+            "name": "safeId",
+            "required": true,
+            "in": "path",
+            "description": "Safe identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "enum": ["PENDING", "COMPLETED", "REJECTED", "EXPIRED"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Get all signature sessions for a safe",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/safes/signatures/sessions/{sessionId}/sign": {
+      "post": {
+        "operationId": "ThresholdSignatureController_addSignature",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "description": "Signature session ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSignatureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Add a signature to a signature session",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/safes/signatures/sessions/{sessionId}/reject": {
+      "post": {
+        "operationId": "ThresholdSignatureController_rejectSignature",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "description": "Signature session ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Reject a transaction signature",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/safes/signatures/sessions/{sessionId}": {
+      "get": {
+        "operationId": "ThresholdSignatureController_getSignatureSession",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "description": "Signature session ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Get signature session details",
+        "tags": ["Threshold Signatures"]
+      }
+    },
+    "/addresses/{addressId}/balance": {
+      "get": {
+        "operationId": "EthereumController_getBalance",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Get native coin balance for an address",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens/{tokenId}/estimate": {
+      "post": {
+        "operationId": "EthereumController_estimateTokenTransfer",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tokenId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EstimateTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Estimate gas for an ERC20 token transfer",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens": {
+      "get": {
+        "operationId": "EthereumController_listTokens",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List ERC20 tokens tracked for an address",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens/{tokenId}/balance": {
+      "get": {
+        "operationId": "EthereumController_getTokenBalance",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tokenId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Get ERC20 token balance for an address",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/transactions/estimate": {
+      "post": {
+        "operationId": "EthereumController_estimateTransaction",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EstimateTransactionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Estimate network fees for a native transaction",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/transactions": {
+      "post": {
+        "operationId": "EthereumController_sendTransaction",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-secret",
+            "in": "header",
+            "description": "API secret required to decrypt signing keys",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendTransactionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Broadcast a native asset transaction",
+        "tags": ["Addresses"]
+      },
+      "get": {
+        "operationId": "EthereumController_getTransactionHistory",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items to return",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Pagination offset",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status (pending|confirmed|failed)",
+            "schema": {
+              "example": "confirmed",
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by type (send|receive)",
+            "schema": {
+              "example": "send",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List native asset transactions with filters",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens/{tokenId}/transfer": {
+      "post": {
+        "operationId": "EthereumController_sendToken",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tokenId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-secret",
+            "in": "header",
+            "description": "API secret required to decrypt signing keys",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Broadcast an ERC20 token transfer",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/transactions/sync": {
+      "post": {
+        "operationId": "EthereumController_syncTransactions",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Trigger a sync of native transactions",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens/transactions/sync": {
+      "post": {
+        "operationId": "EthereumController_syncTokenTransactions",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "Trigger a sync of ERC20 token transactions",
+        "tags": ["Addresses"]
+      }
+    },
+    "/addresses/{addressId}/tokens/{tokenId}/transactions": {
+      "get": {
+        "operationId": "EthereumController_getTokenTransactionHistory",
+        "parameters": [
+          {
+            "name": "addressId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tokenId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items to return",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Pagination offset",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by status (pending|confirmed|failed)",
+            "schema": {
+              "example": "confirmed",
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by type (send|receive)",
+            "schema": {
+              "example": "send",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List ERC20 token transactions with filters",
+        "tags": ["Addresses"]
+      }
+    },
+    "/tenants/{tenantId}/transactions": {
+      "get": {
+        "operationId": "TenantTransactionsController_listTenantTransactions",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "required": true,
+            "in": "path",
+            "description": "Tenant identifier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Page size (max 100)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Pagination offset",
+            "schema": {
+              "minimum": 0,
+              "example": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Transaction status filter",
+            "schema": {
+              "type": "string",
+              "enum": ["pending", "confirmed", "failed"]
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Transaction direction filter",
+            "schema": {
+              "type": "string",
+              "enum": ["send", "receive"]
+            }
+          },
+          {
+            "name": "blockchain",
+            "required": false,
+            "in": "query",
+            "description": "Blockchain slug filter (e.g. ethereum, bitcoin)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetType",
+            "required": false,
+            "in": "query",
+            "description": "Asset type filter (all|coin|token)",
+            "schema": {
+              "type": "string",
+              "enum": ["all", "coin", "token"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "x-api-secret": []
+          },
+          {
+            "x-api-key": []
+          },
+          {
+            "jwt-auth": []
+          }
+        ],
+        "summary": "List transactions scoped to a tenant",
+        "tags": ["Tenant Transactions"]
+      }
+    }
+  },
+  "info": {
+    "title": "BlocSafe Blockchain API",
+    "description": "Hybrid authentication (JWT or API Key + Secret) protected blockchain operations",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "components": {
+    "securitySchemes": {
+      "jwt-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "description": "Frontend integrations use JWT bearer tokens"
+      },
+      "x-api-key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "User issued API key header"
+      },
+      "x-api-secret": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-secret",
+        "description": "Confidential API secret header"
+      }
+    },
+    "schemas": {
+      "CreateSafeDto": {
+        "type": "object",
+        "properties": {
+          "networkType": {
+            "type": "string",
+            "enum": ["mainnet", "testnet", "regtest"],
+            "description": "Network type to derive addresses for",
+            "example": "mainnet"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Tenant identifier that will own the safe",
+            "example": "675aba468b0c6cd23b7a8c5e"
+          }
+        },
+        "required": ["networkType", "tenantId"]
+      },
+      "CreateSafeResponseDto": {
+        "type": "object",
+        "properties": {
+          "safeId": {
+            "type": "string",
+            "description": "External safe identifier"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Indicates whether the safe is active"
+          },
+          "isExported": {
+            "type": "boolean",
+            "description": "Indicates whether the safe data was exported"
+          },
+          "networkType": {
+            "type": "string",
+            "enum": ["mainnet", "testnet", "regtest"],
+            "description": "Network tier that the safe is configured for"
+          },
+          "addressCount": {
+            "type": "number",
+            "description": "Total derived addresses"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Safe creation timestamp"
+          },
+          "message": {
+            "type": "string",
+            "example": "Safe created successfully"
+          }
+        },
+        "required": [
+          "safeId",
+          "isActive",
+          "isExported",
+          "networkType",
+          "message"
+        ]
+      },
+      "SafeSummaryDto": {
+        "type": "object",
+        "properties": {
+          "safeId": {
+            "type": "string",
+            "description": "External safe identifier"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Indicates whether the safe is active"
+          },
+          "isExported": {
+            "type": "boolean",
+            "description": "Indicates whether the safe data was exported"
+          },
+          "networkType": {
+            "type": "string",
+            "enum": ["mainnet", "testnet", "regtest"],
+            "description": "Network tier that the safe is configured for"
+          },
+          "addressCount": {
+            "type": "number",
+            "description": "Total derived addresses"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Safe creation timestamp"
+          }
+        },
+        "required": ["safeId", "isActive", "isExported", "networkType"]
+      },
+      "AddressDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number",
+            "description": "BIP32/BIP44 derivation index"
+          },
+          "safeId": {
+            "type": "string",
+            "description": "Safe identifier that owns the address"
+          },
+          "blockchain": {
+            "type": "string",
+            "description": "Blockchain display name or identifier"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network display name or identifier"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "address",
+          "index",
+          "safeId",
+          "blockchain",
+          "network"
+        ]
+      },
+      "AddressPaginationMetaDto": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "total": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "page",
+          "limit",
+          "total",
+          "totalPages",
+          "hasNextPage",
+          "hasPreviousPage"
+        ]
+      },
+      "AddressListResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressDto"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/AddressPaginationMetaDto"
+          }
+        },
+        "required": ["data", "pagination"]
+      },
+      "ExportSafeResponseDto": {
+        "type": "object",
+        "properties": {
+          "safeId": {
+            "type": "string"
+          },
+          "mnemonic": {
+            "type": "string",
+            "description": "Decrypted mnemonic phrase"
+          },
+          "seed": {
+            "type": "string",
+            "description": "Seed phrase derived from mnemonic"
+          },
+          "exportedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["safeId", "mnemonic", "seed", "exportedAt"]
+      },
+      "ExportAddressResponseDto": {
+        "type": "object",
+        "properties": {
+          "safeId": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "blockchain": {
+            "type": "string"
+          },
+          "network": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "privateKeyHex": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "exportedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "privateKeyArray": {
+            "description": "Optional byte array for Solana exports",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "safeId",
+          "index",
+          "blockchain",
+          "network",
+          "address",
+          "privateKeyHex",
+          "path",
+          "exportedAt"
+        ]
+      },
+      "GrantPermissionDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ConfigureThresholdDto": {
+        "type": "object",
+        "properties": {
+          "threshold": {
+            "type": "number",
+            "description": "Minimum number of signatures required",
+            "example": 2,
+            "minimum": 1
+          },
+          "totalSigners": {
+            "type": "number",
+            "description": "Total number of signers",
+            "example": 3,
+            "minimum": 1
+          },
+          "scheme": {
+            "type": "string",
+            "description": "Signing scheme",
+            "enum": ["PERMISSION_BASED", "SINGLE_SIGNATURE"],
+            "default": "PERMISSION_BASED"
+          }
+        },
+        "required": ["threshold", "totalSigners"]
+      },
+      "CreateSignatureSessionDto": {
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "string",
+            "description": "Address ID for this transaction",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "transactionHash": {
+            "type": "string",
+            "description": "Hash of the transaction being signed",
+            "example": "0x1234567890abcdef..."
+          },
+          "transactionData": {
+            "type": "string",
+            "description": "Serialized transaction data (for verification)",
+            "example": "{\"to\":\"0x...\",\"value\":\"1000000000000000000\",...}"
+          },
+          "expiresInMinutes": {
+            "type": "number",
+            "description": "Session expiration time in minutes",
+            "example": 60,
+            "default": 60,
+            "minimum": 1
+          }
+        },
+        "required": ["addressId", "transactionHash", "transactionData"]
+      },
+      "AddSignatureDto": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string",
+            "description": "Signature (hex string)",
+            "example": "0x1234567890abcdef..."
+          },
+          "signatureShare": {
+            "type": "string",
+            "description": "Signature share (for threshold ECDSA)",
+            "example": "0xabcdef1234567890..."
+          }
+        },
+        "required": ["signature"]
+      },
+      "EstimateTokenDto": {
+        "type": "object",
+        "properties": {
+          "toAddress": {
+            "type": "string",
+            "description": "ERC20 token recipient address",
+            "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Human-readable amount to estimate",
+            "example": "250"
+          }
+        },
+        "required": ["toAddress", "amount"]
+      },
+      "EstimateTransactionDto": {
+        "type": "object",
+        "properties": {
+          "toAddress": {
+            "type": "string",
+            "description": "Destination address",
+            "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+          },
+          "value": {
+            "type": "string",
+            "description": "Amount to send (Wei or decimal string, normalized internally)",
+            "example": "0.05"
+          },
+          "data": {
+            "type": "string",
+            "description": "Optional call data for contract interactions"
+          }
+        },
+        "required": ["toAddress", "value"]
+      },
+      "SendTransactionDto": {
+        "type": "object",
+        "properties": {
+          "toAddress": {
+            "type": "string",
+            "description": "Destination address",
+            "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+          },
+          "value": {
+            "type": "string",
+            "description": "Amount to transfer (Wei or decimal string)",
+            "example": "0.05"
+          },
+          "gasLimit": {
+            "type": "string",
+            "description": "Optional gas limit override"
+          },
+          "gasPrice": {
+            "type": "string",
+            "description": "Legacy gas price (if not using EIP-1559)"
+          },
+          "maxFeePerGas": {
+            "type": "string",
+            "description": "EIP-1559 max fee per gas"
+          },
+          "maxPriorityFeePerGas": {
+            "type": "string",
+            "description": "EIP-1559 priority fee per gas"
+          },
+          "nonce": {
+            "type": "number",
+            "description": "Nonce override",
+            "example": 12
+          },
+          "data": {
+            "type": "string",
+            "description": "Transaction data payload"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional free-form notes"
+          },
+          "feeRate": {
+            "type": "string",
+            "description": "Optional fee rate override for Bitcoin-like chains"
+          }
+        },
+        "required": ["toAddress", "value"]
+      },
+      "SendTokenDto": {
+        "type": "object",
+        "properties": {
+          "toAddress": {
+            "type": "string",
+            "description": "Token recipient address",
+            "example": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Human-readable token amount",
+            "example": "150.5"
+          },
+          "gasLimit": {
+            "type": "string",
+            "description": "Optional gas limit override"
+          },
+          "gasPrice": {
+            "type": "string",
+            "description": "Legacy gas price (non-EIP-1559)"
+          },
+          "maxFeePerGas": {
+            "type": "string",
+            "description": "EIP-1559 max fee per gas"
+          },
+          "maxPriorityFeePerGas": {
+            "type": "string",
+            "description": "EIP-1559 max priority fee per gas"
+          },
+          "nonce": {
+            "type": "number",
+            "description": "Nonce override",
+            "example": 45
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional transfer notes"
+          }
+        },
+        "required": ["toAddress", "amount"]
+      }
+    }
+  }
+}

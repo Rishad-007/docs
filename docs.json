@@ -69,7 +69,7 @@
             "group": "Another group",
             "pages": [
               "special-section/endpoint/get",
-              "special-section/endpoint/put"
+              "special-section/endpoint/post"
             ]
           }
         ]

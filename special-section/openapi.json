@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://your-api.com/"
+      "url": "https://jsonplaceholder.typicode.com"
     }
   ],
   "security": [
@@ -19,134 +19,41 @@
     }
   ],
   "paths": {
-    "/plants": {
+    "/posts/{id}": {
       "get": {
-        "description": "Returnssss all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "description": "Get a post by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "ID of the post to retrieve",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "example": 1
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Post"
+                },
+                "example": {
+                  "userId": 1,
+                  "id": 1,
+                  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
                 }
               }
             }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+          },
+          "404": {
+            "description": "Post not found"
           }
         }
       }
@@ -154,50 +61,31 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": ["name"],
+      "Post": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": ["id"],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": ["error", "message"],
-        "type": "object",
-        "properties": {
-          "error": {
+          "userId": {
             "type": "integer",
-            "format": "int32"
+            "description": "ID of the user who created the post",
+            "example": 2
           },
-          "message": {
-            "type": "string"
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the post",
+            "example": 3
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the post",
+            "example": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+          },
+          "body": {
+            "type": "string",
+            "description": "Content of the post",
+            "example": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
           }
-        }
+        },
+        "required": ["userId", "id", "title", "body"]
       }
     },
     "securitySchemes": {
